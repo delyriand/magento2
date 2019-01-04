@@ -795,8 +795,8 @@ define([
             $.mage.__('First character must be letter.')
         ],
         'validate-date': [
-            function (value, params, additionalParams) {
-                var test = moment(value, additionalParams.dateFormat);
+            function (value, params) {
+                var test = moment(value, params.dateFormat);
 
                 return utils.isEmptyNoTrim(value) || test.isValid();
             },
