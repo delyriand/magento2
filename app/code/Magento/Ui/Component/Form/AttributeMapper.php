@@ -5,6 +5,8 @@
  */
 namespace Magento\Ui\Component\Form;
 
+use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
+
 /**
  * @api
  * @since 100.0.2
@@ -46,6 +48,24 @@ class AttributeMapper
             'date' => ['validate-date' => true],
         ],
     ];
+
+    /**
+     * AttributeMapper constructor.
+     *
+     * @param TimezoneInterface $localeDate
+     */
+    public function __construct(TimezoneInterface $localeDate)
+    {
+        // Add dateFormat into validate-date rule.
+        $this->validationRules = array_merge_recursive(
+            $this->validationRules,
+            [
+                'input_validation' => [
+                    'date' => ['validate-date' => ['dateFormat' => $localeDate->getDateFormatWithLongYear()]],
+                ],
+            ]
+        );
+    }
 
     /**
      * Get attributes meta
